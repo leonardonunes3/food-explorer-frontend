@@ -1,10 +1,12 @@
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Container, Form } from "./styles";
+import logo  from "../../assets/Logo.svg";
 
 export function SignIn() {
     return(
         <Container>
+
             <Form>
                 <h1>Faça login</h1>
 
@@ -21,7 +23,11 @@ export function SignIn() {
 
 
                 <Button title="Entrar" />
+
+                Criar uma conta
             </Form>
+
+            <img src={logo} />
         </Container>
     );
 }

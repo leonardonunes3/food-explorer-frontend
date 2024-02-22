@@ -19,6 +19,8 @@ export const Container = styled.div`
         width: 100%;
         padding: 16px;
 
+        font-size: 16px;
+
         background: transparent;
         color: ${({ theme }) => theme.COLORS.LIGHT_500 };
 
