@@ -10,7 +10,7 @@ export const Container = styled.div`
 
     margin-bottom: 32px;
     border-radius: 5px;
-    border: solid;
+    border: ${({ alternativeInput }) => alternativeInput ? "none" : "solid" };
     border-width: 1px;
     border-color: ${({ theme }) => theme.COLORS.WHITE };
     
@@ -21,8 +21,10 @@ export const Container = styled.div`
 
         font-size: 16px;
 
-        background: transparent;
+        background-color: ${({ theme, alternativeInput }) => alternativeInput ? theme.COLORS.BACKGROUND_DARK_900 : "transparent" };
         color: ${({ theme }) => theme.COLORS.LIGHT_500 };
+        border-radius: 5px;
+        border-color: transparent;
 
         &::placeholder {
             color: ${({ theme }) => theme.COLORS.LIGHT_500 };

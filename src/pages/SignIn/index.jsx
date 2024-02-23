@@ -1,6 +1,9 @@
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
+import { ButtonText } from "../../components/ButtonText";
+
 import { Container, Form } from "./styles";
+
 import logo  from "../../assets/Logo.svg";
 
 export function SignIn() {
@@ -23,7 +26,7 @@ export function SignIn() {
 
                 <Button title="Entrar" />
 
-                Criar uma conta
+                <ButtonText title="Criar uma conta" />
             </Form>
 
             <img src={logo} />
