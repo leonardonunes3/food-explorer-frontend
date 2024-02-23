@@ -21,7 +21,6 @@ export function SignIn() {
                     type="password"
                 />
 
-
                 <Button title="Entrar" />
 
                 Criar uma conta
