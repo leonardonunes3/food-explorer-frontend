@@ -11,3 +11,12 @@ export const Container = styled.div`
     "content";
 
 `;
+
+export const Carousel = styled.div`
+    width: 1122px;
+    height: 462px;
+    margin: 20px auto;
+
+    --swiper-theme-color: #FFF;
+    --swiper-navigation-size: 40px;
+`;

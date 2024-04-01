@@ -50,7 +50,7 @@ export const Form = styled.form`
         color: ${({ theme }) => theme.COLORS.LIGHT_400 };
     }
 
-    button {
+    button, div {
         margin-bottom: 32px;
     }
 
