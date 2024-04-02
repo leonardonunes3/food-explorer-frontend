@@ -7,7 +7,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
 
-    margin-top: 54px;
+    margin-top: 24px;
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND_DARK_200 };
     opacity: ${({ opacity }) => opacity };
 
