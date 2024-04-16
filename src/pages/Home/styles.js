@@ -5,11 +5,10 @@ export const Container = styled.div`
     height: 100vh;
 
     display: grid;
-    grid-template-rows: 104px auto 77px;
+    grid-template-rows: 104px auto;
     grid-template-areas: 
     "header"
-    "content"
-    "footer";
+    "content";
 
 `;
 

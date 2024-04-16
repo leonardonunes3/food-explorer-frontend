@@ -37,6 +37,9 @@ export const Frame = styled.div`
         padding-right: 46px;
         white-space: nowrap;
 
+        padding-left: ${({ isAdmin }) => isAdmin ? "80px" : ""};
+        padding-right: ${({ isAdmin }) => isAdmin ? "80px" : ""};
+
         > svg {
             margin-left: 46px;
             margin-right: 8px;

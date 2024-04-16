@@ -24,7 +24,7 @@ export function Home() {
 
     return(
         <Container>
-            <Header />
+            <Header isAdmin />
             <Content>
                 <Banner>
                     <img src={banner} width={656} height={412} />
@@ -212,8 +212,8 @@ export function Home() {
                         </Swiper>
                     </CarouselCards>
                 </Carousel>
+                <Footer />
             </Content>
-            <Footer />
         </Container>
     );
 }
