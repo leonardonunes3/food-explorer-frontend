@@ -1,9 +1,9 @@
-import { Container, ButtonIcon, Number } from "./styles";
+import { Container, ButtonIcon, Number, Box } from "./styles";
 
 import { Button } from "../Button";
 import { FiMinus, FiPlus } from "react-icons/fi";
 
-export function Counter() {
+export function Counter({ price }) {
     return(
         <Container>
             <ButtonIcon>
@@ -15,7 +15,9 @@ export function Counter() {
             <ButtonIcon>
                 <FiPlus color="white" size={24}/>
             </ButtonIcon>
-            <Button title="incluir"/>
+            <Box price={price}>
+                { price ? <Button title={`incluir ∙ R$ ${price}`}/> : <Button title="incluir"/>}
+            </Box>
         </Container>
     );
 }

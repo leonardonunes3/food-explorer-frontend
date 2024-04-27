@@ -17,6 +17,8 @@ export const Carousel = styled.div`
     flex-direction: column;
     grid-area: content;
 
+    margin-bottom: 48px;
+
     > h1 {
         margin: 64px 124px 0 124px;
         font-size: 32px;

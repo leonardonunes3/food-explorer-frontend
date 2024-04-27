@@ -67,3 +67,7 @@ export const Box = styled.div`
     flex-direction: row;
     justify-content: space-between;
 `;
+
+export const Frame = styled.div`
+    margin: 16px 48px 0 48px;
+`;

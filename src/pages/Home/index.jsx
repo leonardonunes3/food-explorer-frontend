@@ -5,6 +5,7 @@ import { Header } from "../../components/Header";
 import { DishCard } from "../../components/DishCard";
 
 import { FiHeart } from "react-icons/fi";
+import { PiPencilSimple } from "react-icons/pi";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
@@ -18,13 +19,25 @@ import 'swiper/css/navigation';
 
 import spaguetti from "../../assets/spaguetti.png";
 import { Footer } from "../../components/Footer";
+        
 
 export function Home() {
     const [swiperRef, setSwiperRef] = useState(0);
+    const [swiperIndex, setSwiperIndex] = useState(0);
+
+    function getOpacity(index) {
+        console.log(index);
+        console.log(swiperIndex);
+        if((index+1) >= swiperIndex && (index+1) < (swiperIndex+3)) {
+            return 1;
+        } else {
+            return 0.3;
+        }
+    }
 
     return(
         <Container>
-            <Header isAdmin />
+            <Header />
             <Content>
                 <Banner>
                     <img src={banner} width={656} height={412} />
@@ -42,7 +55,9 @@ export function Home() {
                     <CarouselCards>
                         <Swiper
                             onSwiper={setSwiperRef}
-                            onSlideChange={() => console.log(swiperRef)}
+                            onSlideChange={(swiper) => {
+                                setSwiperIndex(swiper.realIndex);
+                            }}
                             slidesPerView={3.8}
                             initialSlide={swiperRef}
                             centeredSlides={true}
@@ -54,12 +69,13 @@ export function Home() {
                         >
                             <SwiperSlide>
                                 <DishCard 
-                                    icon={FiHeart}
+                                    icon={PiPencilSimple}
                                     name="Spaguetti Gambe >"
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={1}
+                                    opacity={getOpacity(0)}
+                                    isAdmin={true}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
@@ -69,7 +85,7 @@ export function Home() {
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={1}
+                                    opacity={getOpacity(1)}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
@@ -79,7 +95,7 @@ export function Home() {
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={1}
+                                    opacity={getOpacity(2)}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
@@ -89,7 +105,7 @@ export function Home() {
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={0.3}
+                                    opacity={getOpacity(3)}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
@@ -99,7 +115,7 @@ export function Home() {
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={0.3}
+                                    opacity={getOpacity(4)}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
@@ -109,7 +125,7 @@ export function Home() {
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={0.3}
+                                    opacity={getOpacity(5)}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
@@ -119,7 +135,7 @@ export function Home() {
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={0.3}
+                                    opacity={getOpacity(6)}
                                 />
                             </SwiperSlide>
                         </Swiper>

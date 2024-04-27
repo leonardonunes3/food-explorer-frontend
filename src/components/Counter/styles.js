@@ -3,9 +3,6 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     flex-direction: row;
-
-    margin: 16px 48px 0 48px;
-
 `;
 
 export const ButtonIcon = styled.button`
@@ -29,4 +26,8 @@ export const Number = styled.div`
     font-weight: 700;
     color: ${({ theme }) => theme.COLORS.LIGHT_300 };
     font-family: "Roboto", sans-serif;
+`;
+
+export const Box = styled.div`
+    margin-left: ${({ price }) => price ? "34px" : ""};
 `;

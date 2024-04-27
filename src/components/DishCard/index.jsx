@@ -1,7 +1,7 @@
-import { Container, Action, DishImage, Box } from "./styles";
+import { Container, Action, DishImage, Box, Frame } from "./styles";
 import { Counter } from "../Counter";
 
-export function DishCard({ icon: Icon, name, description, price, image: Image, opacity }) {
+export function DishCard({ icon: Icon, name, description, price, image: Image, opacity, isAdmin }) {
     return(
         <Container opacity={opacity}>
             <Box>
@@ -19,7 +19,9 @@ export function DishCard({ icon: Icon, name, description, price, image: Image, o
 
             <h2> R$ { price } </h2>
 
-            <Counter />
+            <Frame>
+                { isAdmin ? <></> : <Counter /> }
+            </Frame>
         </Container>
     );
 }

@@ -1,6 +1,7 @@
 import { Container, Frame } from './styles';
 
-import logo from "../../assets/Logo.svg"
+import logo from "../../assets/Logo.svg";
+import adminLogo from "../../assets/AdminLogo.svg";
 
 import { Input } from "../Input";
 import { Button } from "../Button";
@@ -11,7 +12,13 @@ export function Header({ isAdmin = false }) {
     return(
         <Container>
             <Frame isAdmin={isAdmin}>
-                <img src={logo} width={197} height={30} />
+                { 
+                    isAdmin 
+                    ? 
+                    <img src={adminLogo} width={197} height={39} />
+                    :
+                    <img src={logo} width={197} height={30} />
+                }
                 <Input 
                     icon={FiSearch} 
                     placeholder="Busque por pratos ou ingredientes"
