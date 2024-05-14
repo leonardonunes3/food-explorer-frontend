@@ -11,6 +11,7 @@ export default {
 
         WHITE: "#FFFFFF",
         RED_BUTTON: "#750310",
+        LIGHT_RED_BUTTON: "#AB4D55",
 
         LIGHT_200: "#FFFAF1",
         LIGHT_300: "#E1E1E6",
