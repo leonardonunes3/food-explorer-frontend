@@ -3,6 +3,10 @@ import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { Input } from "../../components/Input";
 
+import Select from 'react-select'
+
+import theme from '../../styles/theme';
+
 import { SlArrowLeft } from "react-icons/sl";
 import { PiUploadSimpleLight } from "react-icons/pi";
 import { Button } from "../../components/Button";
@@ -10,6 +14,49 @@ import { useState } from "react";
 
 export function ConfigDish() {
     const [newDish, setNewDish] = useState(true);
+
+    const options = [
+        {
+          value: "Refeição",
+          label: "Refeição"
+        },
+        {
+          value: "Sobremesa",
+          label: "Sobremesa",
+        },
+        {
+          value: "Bebida",
+          label: "Bebida",
+        },
+    ];
+
+    const customStyles = {
+        control: (provided) => ({
+          ...provided,
+          background: theme.COLORS.BACKGROUND_DARK_900,
+          borderColor: theme.COLORS.BACKGROUND_DARK_900,
+          color: theme.COLORS.LIGHT_400,
+          display: 'flex',
+          flexWrap: 'nowrap',
+          width: '364px',
+          height: '48px',
+          paddingLeft: '8px',
+          paddingRight: '8px',
+          fontSize: '16px',
+          fontWeight: 400,
+          fontFamily: "Roboto",
+        }),
+        menu: (provided) => ({
+          ...provided,
+          background: theme.COLORS.BACKGROUND_DARK_900,
+          color: theme.COLORS.LIGHT_400,
+          width: '364px',
+          paddingLeft: '8px',
+          fontSize: '16px',
+          fontWeight: 400,
+          fontFamily: "Roboto",
+        }),
+    };
 
     return(
         <Container>
@@ -38,16 +85,17 @@ export function ConfigDish() {
                         </InputBox>
                         <InputBox last={true}>
                             <h2>Categoria</h2>
-                            <SelectionBox>
-                                <select>
-                                    <option value="teste"> 
-                                        Teste 1
-                                    </option>
-                                    <option value="testee"> 
-                                        Teste 2
-                                    </option>
-                                </select>
-                            </SelectionBox>
+                            <Select
+                                options={options}
+                                styles={customStyles}
+                                isSearchable={true}
+                                placeholder={"Selecione uma categoria"}
+                                theme={(theme) => ({
+                                    ...theme,
+                                    colors: {
+                                    },
+                                })}
+                            />
                         </InputBox>
                     </FirstRow>
                     <SecondRow>

@@ -153,18 +153,5 @@ export const ButtonFrame = styled.div`
 `;
 
 export const SelectionBox = styled.div`
-    > select {
-        display: flex;
-        background: transparent;
-        height: 48px;
-        width: 150px;
-
-        color: ${({ theme }) => theme.COLORS.LIGHT_500 };
-
-        border-radius: 5px;
-        border: none;
-        border-width: 1px;
-        border-color: ${({ theme }) => theme.COLORS.WHITE };
-        background-color: ${({ theme }) => theme.COLORS.BACKGROUND_DARK_900 };
-    }
+   
 `;
