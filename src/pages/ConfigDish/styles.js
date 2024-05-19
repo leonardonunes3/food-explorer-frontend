@@ -97,6 +97,9 @@ export const InputBox = styled.div`
        margin-bottom: 16px;
     }
     
+    input:focus {
+        outline: none;
+    }
 `;
 
 export const FirstRow = styled.div`
@@ -152,6 +155,82 @@ export const ButtonFrame = styled.div`
     }
 `;
 
-export const SelectionBox = styled.div`
-   
+export const Ingredients = styled.div`
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+
+    border-radius: 5px;
+    border: "none";
+    border-width: 1px;
+    border-color: ${({ theme }) => theme.COLORS.WHITE };
+    background-color: ${({ theme }) =>  theme.COLORS.BACKGROUND_DARK_900};
+`;
+
+export const AddButton = styled.button`
+    display: flex;
+    align-items: center;
+    width: 116px;
+
+    border-radius: 8px;
+    border: dashed;
+    border-width: 1px;
+    background-color: transparent;
+    border-color:${({ theme }) => theme.COLORS.LIGHT_500 };
+    height: 32px;
+
+    color: ${({ theme }) => theme.COLORS.LIGHT_500 };
+    font-size: 16px;
+    font-family: "Roboto", sans-serif;
+
+    margin-left: 16px;
+
+    input {
+        background-color: transparent;
+        color: ${({ theme }) => theme.COLORS.LIGHT_500 };
+        font-size: 16px;
+        font-family: "Roboto", sans-serif;
+        border: none;
+
+        display: flex;
+        width: 68px;
+        margin-left: 16px;
+        margin-right: 8px;
+    }
+
+    input:focus {
+        outline: none;
+    }
+`;
+
+export const Tag = styled.div`
+    display: flex;
+    align-items: center;
+    width: fit-content;
+
+    border-radius: 8px;
+    border-width: 1px;
+    background-color: ${({ theme }) => theme.COLORS.LIGHT_600 };
+    height: 32px;
+
+    > p {
+        margin-left: 16px;
+        color: ${({ theme }) => theme.COLORS.LIGHT_100 };
+        font-size: 16px;
+        font-family: "Roboto", sans-serif;
+    }
+
+    margin-left: 16px;
+
+`;
+
+export const Exclude = styled.button`
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+
+    margin-left: 8px;
+    margin-right: 16px;
 `;

@@ -1,4 +1,4 @@
-import { Container, Content, GoBack, Frame, InputBox, FirstRow, SecondRow, ThirdRow, UploadButton, BigInput, ButtonFrame, SelectionBox } from "./styles";
+import { Container, Content, GoBack, Frame, InputBox, FirstRow, SecondRow, ThirdRow, UploadButton, BigInput, ButtonFrame, Ingredients, AddButton, Tag, Exclude } from "./styles";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { Input } from "../../components/Input";
@@ -9,11 +9,16 @@ import theme from '../../styles/theme';
 
 import { SlArrowLeft } from "react-icons/sl";
 import { PiUploadSimpleLight } from "react-icons/pi";
+import { IoCloseOutline } from "react-icons/io5";
 import { Button } from "../../components/Button";
 import { useState } from "react";
+import debounce from "debounce";
+
 
 export function ConfigDish() {
-    const [newDish, setNewDish] = useState(true);
+    const [newDish, setNewDish] = useState(false);
+    const [ingredients, setIngredients] = useState([]);
+    const [input, setInput] = useState();
 
     const options = [
         {
@@ -58,6 +63,15 @@ export function ConfigDish() {
         }),
     };
 
+    const updateState = () => {
+        if(input) {
+            ingredients.push({ name: input });
+            setInput();
+        }
+    };
+
+    const handleOnClick = debounce(updateState, 300);
+
     return(
         <Container>
             <Header isAdmin />
@@ -101,10 +115,37 @@ export function ConfigDish() {
                     <SecondRow>
                         <InputBox scale={true}>
                             <h2>Ingredientes</h2>
-                            <Input 
-                                placeholder="."
-                                alternativeInput
-                            />
+                            <Ingredients>
+                                { 
+                                    ingredients.map((ingredient, index) => (
+                                        <Tag>
+                                            <p>{ingredient.name}</p>
+                                            <Exclude
+                                                type="button"
+                                                onClick={() => {
+                                                    console.log(ingredients.at(index));
+                                                    setIngredients(ingredients.filter((ingredient) => ingredient !== ingredients.at(index)))
+                                                }}
+                                            >
+                                                <IoCloseOutline 
+                                                    size={16}
+                                                    color="white"
+                                                />
+                                            </Exclude>
+                                        </Tag>
+                                    ))
+                                }
+                                <AddButton
+                                    type="button"
+                                    onClick={handleOnClick}
+                                >
+                                    <input
+                                        placeholder="Adicionar"
+                                        onChange={input => setInput(input.target.value)}
+                                    />
+                                    <p>&nbsp;+</p>
+                                </AddButton>
+                            </Ingredients>
                         </InputBox>
                         <InputBox last={true}>
                             <h2>Preço</h2>
