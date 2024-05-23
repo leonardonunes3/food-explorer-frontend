@@ -32,7 +32,7 @@ export function SignUp() {
             alternativeInput
           />
 
-          <Button title="Criar uma conta" />
+          <Button title="Criar conta" />
 
           <ButtonText title="Já tenho uma conta" />
           

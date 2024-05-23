@@ -54,4 +54,8 @@ export const Form = styled.form`
         margin-bottom: 32px;
     }
 
+    button {
+        justify-content: center;
+    }
+
 `;
