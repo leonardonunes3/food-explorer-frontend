@@ -18,7 +18,7 @@ export function Dish() {
             <Header isAdmin={isAdmin} />
             <Content>
                 <GoBack type="button">
-                    <SlArrowLeft size={32}/>
+                    <SlArrowLeft size={24}/>
                     <h2>voltar</h2>
                 </GoBack>
                 <Frame>

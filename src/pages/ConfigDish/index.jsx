@@ -16,7 +16,7 @@ import debounce from "debounce";
 
 
 export function ConfigDish() {
-    const [newDish, setNewDish] = useState(false);
+    const [newDish, setNewDish] = useState(true);
     const [ingredients, setIngredients] = useState([]);
     const [input, setInput] = useState();
 
@@ -77,7 +77,7 @@ export function ConfigDish() {
             <Header isAdmin />
             <Content>
                 <GoBack type="button">
-                    <SlArrowLeft size={32}/>
+                    <SlArrowLeft size={24}/>
                     <h2>voltar</h2>
                 </GoBack>
                 {newDish ? <h1>Adicionar prato</h1> : <h1>Editar prato</h1>}
@@ -137,7 +137,7 @@ export function ConfigDish() {
                                 }
                                 <AddButton
                                     type="button"
-                                    onClick={handleOnClick}
+                                    onMouseDown={handleOnClick}
                                 >
                                     <input
                                         placeholder="Adicionar"

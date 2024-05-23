@@ -24,6 +24,7 @@ import { Footer } from "../../components/Footer";
 export function Home() {
     const [swiperRef, setSwiperRef] = useState(0);
     const [swiperIndex, setSwiperIndex] = useState(0);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     function getOpacity(index) {
         console.log(index);
@@ -37,7 +38,7 @@ export function Home() {
 
     return(
         <Container>
-            <Header />
+            <Header isAdmin={isAdmin} />
             <Content>
                 <Banner>
                     <img src={banner} width={656} height={412} />
@@ -69,73 +70,79 @@ export function Home() {
                         >
                             <SwiperSlide>
                                 <DishCard 
-                                    icon={PiPencilSimple}
+                                    icon={isAdmin ? PiPencilSimple : FiHeart}
                                     name="Spaguetti Gambe >"
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
                                     opacity={getOpacity(0)}
-                                    isAdmin={true}
+                                    isAdmin={isAdmin}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
                                 <DishCard 
-                                    icon={FiHeart}
+                                    icon={isAdmin ? PiPencilSimple : FiHeart}
                                     name="Spaguetti Gambe >"
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
                                     opacity={getOpacity(1)}
+                                    isAdmin={isAdmin}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
                                 <DishCard 
-                                    icon={FiHeart}
+                                    icon={isAdmin ? PiPencilSimple : FiHeart}
                                     name="Spaguetti Gambe >"
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
                                     opacity={getOpacity(2)}
+                                    isAdmin={isAdmin}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
                                 <DishCard 
-                                    icon={FiHeart}
+                                    icon={isAdmin ? PiPencilSimple : FiHeart}
                                     name="Spaguetti Gambe >"
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
                                     opacity={getOpacity(3)}
+                                    isAdmin={isAdmin}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
                                 <DishCard 
-                                    icon={FiHeart}
+                                    icon={isAdmin ? PiPencilSimple : FiHeart}
                                     name="Spaguetti Gambe >"
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
                                     opacity={getOpacity(4)}
+                                    isAdmin={isAdmin}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
                                 <DishCard 
-                                    icon={FiHeart}
+                                    icon={isAdmin ? PiPencilSimple : FiHeart}
                                     name="Spaguetti Gambe >"
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
                                     opacity={getOpacity(5)}
+                                    isAdmin={isAdmin}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
                                 <DishCard 
-                                    icon={FiHeart}
+                                    icon={isAdmin ? PiPencilSimple : FiHeart}
                                     name="Spaguetti Gambe >"
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
                                     opacity={getOpacity(6)}
+                                    isAdmin={isAdmin}
                                 />
                             </SwiperSlide>
                         </Swiper>
@@ -157,72 +164,79 @@ export function Home() {
                         >
                             <SwiperSlide>
                                 <DishCard 
-                                    icon={FiHeart}
+                                    icon={isAdmin ? PiPencilSimple : FiHeart}
                                     name="Spaguetti Gambe >"
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
                                     opacity={1}
+                                    isAdmin={isAdmin}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
                                 <DishCard 
-                                    icon={FiHeart}
+                                    icon={isAdmin ? PiPencilSimple : FiHeart}
                                     name="Spaguetti Gambe >"
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
                                     opacity={1}
+                                    isAdmin={isAdmin}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
                                 <DishCard 
-                                    icon={FiHeart}
+                                    icon={isAdmin ? PiPencilSimple : FiHeart}
                                     name="Spaguetti Gambe >"
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
                                     opacity={1}
+                                    isAdmin={isAdmin}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
                                 <DishCard 
-                                    icon={FiHeart}
+                                    icon={isAdmin ? PiPencilSimple : FiHeart}
                                     name="Spaguetti Gambe >"
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
                                     opacity={0.3}
+                                    isAdmin={isAdmin}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
                                 <DishCard 
-                                    icon={FiHeart}
+                                    icon={isAdmin ? PiPencilSimple : FiHeart}
                                     name="Spaguetti Gambe >"
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
                                     opacity={0.3}
+                                    isAdmin={isAdmin}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
                                 <DishCard 
-                                    icon={FiHeart}
+                                    icon={isAdmin ? PiPencilSimple : FiHeart}
                                     name="Spaguetti Gambe >"
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
                                     opacity={0.3}
+                                    isAdmin={isAdmin}
                                 />
                             </SwiperSlide>
                             <SwiperSlide>
                                 <DishCard 
-                                    icon={FiHeart}
+                                    icon={isAdmin ? PiPencilSimple : FiHeart}
                                     name="Spaguetti Gambe >"
                                     description="Massa fresca com camarões e pesto."
                                     price="79,97"
                                     image={<img src={spaguetti} width={176} height={176}/>}
                                     opacity={0.3}
+                                    isAdmin={isAdmin}
                                 />
                             </SwiperSlide>
                         </Swiper>

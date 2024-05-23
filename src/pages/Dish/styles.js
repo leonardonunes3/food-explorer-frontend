@@ -31,6 +31,7 @@ export const GoBack = styled.button`
         font-size: 24px;
         font-weight: 700;
         font-family: "Poppins", sans-serif;
+        margin-left: 4px;
     }
 `;
 

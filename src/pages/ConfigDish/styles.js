@@ -39,6 +39,7 @@ export const GoBack = styled.button`
         font-weight: 700;
         font-family: "Poppins", sans-serif;
         color: ${({theme}) => theme.COLORS.LIGHT_300 };
+        margin-left: 4px;
     }
 `;
 
