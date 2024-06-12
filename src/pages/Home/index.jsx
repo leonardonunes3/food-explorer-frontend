@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Container, Carousel, CarouselCards, Content, Banner } from "./styles";
 import { Header } from "../../components/Header";
@@ -10,6 +10,8 @@ import { PiPencilSimple } from "react-icons/pi";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
 
+import { api } from "../../services/api.js";
+ 
 import banner from "../../assets/Banner.svg";
 
 import 'swiper/css';
@@ -25,10 +27,34 @@ export function Home() {
     const [swiperRef, setSwiperRef] = useState(0);
     const [swiperIndex, setSwiperIndex] = useState(0);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [meals, setMeals] = useState({});
+    const [drinks, setDrinks] = useState({});
+    const [desserts, setDesserts] = useState({});
+    const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+    useEffect(() => {
+
+        api.get("/dishes")
+        .then((response) => {
+
+            setMeals(response.data.filter((meal) => meal.category === "Refeições"));
+            setDesserts(response.data.filter((dessert) => dessert.category === "Sobremesas"));
+            setDrinks(response.data.filter((drink) => drink.category === "Bebidas"));
+
+        })
+        .catch(error => {
+            if(error.response) {
+                alert(error.response.data.message);
+            } else {
+                alert("Não foi possível conectar com o servidor.");
+            }
+        })
+
+        setIsDataLoaded(true);
+
+    }, []);
 
     function getOpacity(index) {
-        console.log(index);
-        console.log(swiperIndex);
         if((index+1) >= swiperIndex && (index+1) < (swiperIndex+3)) {
             return 1;
         } else {
@@ -37,6 +63,7 @@ export function Home() {
     }
 
     return(
+
         <Container>
             <Header isAdmin={isAdmin} />
             <Content>
@@ -68,83 +95,27 @@ export function Home() {
                             modules={[Pagination, Navigation]}
                             className="mySwiper"
                         >
-                            <SwiperSlide>
-                                <DishCard 
-                                    icon={isAdmin ? PiPencilSimple : FiHeart}
-                                    name="Spaguetti Gambe >"
-                                    description="Massa fresca com camarões e pesto."
-                                    price="79,97"
-                                    image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={getOpacity(0)}
-                                    isAdmin={isAdmin}
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <DishCard 
-                                    icon={isAdmin ? PiPencilSimple : FiHeart}
-                                    name="Spaguetti Gambe >"
-                                    description="Massa fresca com camarões e pesto."
-                                    price="79,97"
-                                    image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={getOpacity(1)}
-                                    isAdmin={isAdmin}
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <DishCard 
-                                    icon={isAdmin ? PiPencilSimple : FiHeart}
-                                    name="Spaguetti Gambe >"
-                                    description="Massa fresca com camarões e pesto."
-                                    price="79,97"
-                                    image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={getOpacity(2)}
-                                    isAdmin={isAdmin}
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <DishCard 
-                                    icon={isAdmin ? PiPencilSimple : FiHeart}
-                                    name="Spaguetti Gambe >"
-                                    description="Massa fresca com camarões e pesto."
-                                    price="79,97"
-                                    image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={getOpacity(3)}
-                                    isAdmin={isAdmin}
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <DishCard 
-                                    icon={isAdmin ? PiPencilSimple : FiHeart}
-                                    name="Spaguetti Gambe >"
-                                    description="Massa fresca com camarões e pesto."
-                                    price="79,97"
-                                    image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={getOpacity(4)}
-                                    isAdmin={isAdmin}
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <DishCard 
-                                    icon={isAdmin ? PiPencilSimple : FiHeart}
-                                    name="Spaguetti Gambe >"
-                                    description="Massa fresca com camarões e pesto."
-                                    price="79,97"
-                                    image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={getOpacity(5)}
-                                    isAdmin={isAdmin}
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <DishCard 
-                                    icon={isAdmin ? PiPencilSimple : FiHeart}
-                                    name="Spaguetti Gambe >"
-                                    description="Massa fresca com camarões e pesto."
-                                    price="79,97"
-                                    image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={getOpacity(6)}
-                                    isAdmin={isAdmin}
-                                />
-                            </SwiperSlide>
+                            { 
+                                isDataLoaded ?
+                                meals?.map((meal, index) => {         
+                                    const srcImage = `${api.defaults.baseURL}/dishesFiles/${meal.dish_image}`;
+                                    return(
+                                        <SwiperSlide>
+                                            <DishCard 
+                                                icon={isAdmin ? PiPencilSimple : FiHeart}
+                                                name={meal.name}
+                                                description={meal.description}
+                                                price={meal.price}
+                                                image={<img src={srcImage} width={176} height={176}/>}
+                                                opacity={getOpacity(index)}
+                                                isAdmin={isAdmin}
+                                            />
+                                        </SwiperSlide>
+                                    )
+                                }) 
+                                :
+                                <></>
+                            }
                         </Swiper>
                     </CarouselCards>
 
@@ -162,83 +133,64 @@ export function Home() {
                             modules={[Pagination, Navigation]}
                             className="mySwiper"
                         >
-                            <SwiperSlide>
-                                <DishCard 
-                                    icon={isAdmin ? PiPencilSimple : FiHeart}
-                                    name="Spaguetti Gambe >"
-                                    description="Massa fresca com camarões e pesto."
-                                    price="79,97"
-                                    image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={1}
-                                    isAdmin={isAdmin}
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <DishCard 
-                                    icon={isAdmin ? PiPencilSimple : FiHeart}
-                                    name="Spaguetti Gambe >"
-                                    description="Massa fresca com camarões e pesto."
-                                    price="79,97"
-                                    image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={1}
-                                    isAdmin={isAdmin}
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <DishCard 
-                                    icon={isAdmin ? PiPencilSimple : FiHeart}
-                                    name="Spaguetti Gambe >"
-                                    description="Massa fresca com camarões e pesto."
-                                    price="79,97"
-                                    image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={1}
-                                    isAdmin={isAdmin}
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <DishCard 
-                                    icon={isAdmin ? PiPencilSimple : FiHeart}
-                                    name="Spaguetti Gambe >"
-                                    description="Massa fresca com camarões e pesto."
-                                    price="79,97"
-                                    image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={0.3}
-                                    isAdmin={isAdmin}
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <DishCard 
-                                    icon={isAdmin ? PiPencilSimple : FiHeart}
-                                    name="Spaguetti Gambe >"
-                                    description="Massa fresca com camarões e pesto."
-                                    price="79,97"
-                                    image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={0.3}
-                                    isAdmin={isAdmin}
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <DishCard 
-                                    icon={isAdmin ? PiPencilSimple : FiHeart}
-                                    name="Spaguetti Gambe >"
-                                    description="Massa fresca com camarões e pesto."
-                                    price="79,97"
-                                    image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={0.3}
-                                    isAdmin={isAdmin}
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <DishCard 
-                                    icon={isAdmin ? PiPencilSimple : FiHeart}
-                                    name="Spaguetti Gambe >"
-                                    description="Massa fresca com camarões e pesto."
-                                    price="79,97"
-                                    image={<img src={spaguetti} width={176} height={176}/>}
-                                    opacity={0.3}
-                                    isAdmin={isAdmin}
-                                />
-                            </SwiperSlide>
+                            { 
+                                isDataLoaded ?
+                                desserts?.map((dessert, index) => {
+                                    const srcImage = `${api.defaults.baseURL}/dishesFiles/${dessert.dish_image}`;
+                                    return(
+                                        <SwiperSlide>
+                                            <DishCard 
+                                                icon={isAdmin ? PiPencilSimple : FiHeart}
+                                                name={dessert.name}
+                                                description={dessert.description}
+                                                price={dessert.price}
+                                                image={<img src={srcImage} width={176} height={176}/>}
+                                                opacity={getOpacity(index)}
+                                                isAdmin={isAdmin}
+                                            />
+                                        </SwiperSlide>
+                                    )
+                                }) 
+                                :
+                                <></>
+                            }
+                        </Swiper>
+                    </CarouselCards>
+                    <h1>Bebidas</h1>
+                    <CarouselCards>
+                        <Swiper
+                            onSwiper={setSwiperRef}
+                            onSlideChange={() => console.log(swiperRef)}
+                            slidesPerView={3.8}
+                            initialSlide={swiperRef}
+                            centeredSlides={true}
+                            centeredSlidesBounds={true}
+                            spaceBetween={27}
+                            navigation={true}
+                            modules={[Pagination, Navigation]}
+                            className="mySwiper"
+                        >
+                            { 
+                                isDataLoaded ?
+                                drinks?.map((drink, index) => {
+                                    const srcImage = `${api.defaults.baseURL}/dishesFiles/${drink.dish_image}`;
+                                    return(
+                                        <SwiperSlide>
+                                            <DishCard 
+                                                icon={isAdmin ? PiPencilSimple : FiHeart}
+                                                name={drink.name}
+                                                description={drink.description}
+                                                price={drink.price}
+                                                image={<img src={srcImage} width={176} height={176}/>}
+                                                opacity={getOpacity(index)}
+                                                isAdmin={isAdmin}
+                                            />
+                                        </SwiperSlide>
+                                    )
+                                }) 
+                                :
+                                <></>
+                            }
                         </Swiper>
                     </CarouselCards>
                 </Carousel>
