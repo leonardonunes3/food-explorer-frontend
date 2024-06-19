@@ -6,9 +6,9 @@ export function Footer() {
     return(
         <Container>
             <img src={logo} width={186} height={30} />
-            <text>
+            <p> 
                 © 2023 - Todos os direitos reservados.
-            </text>
+            </p>
         </Container>
     );
 }

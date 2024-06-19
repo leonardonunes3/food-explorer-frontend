@@ -10,6 +10,8 @@ import { PiPencilSimple } from "react-icons/pi";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
 
+import { useNavigate } from "react-router-dom";
+
 import { api } from "../../services/api.js";
  
 import banner from "../../assets/Banner.svg";
@@ -18,19 +20,23 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-
-import spaguetti from "../../assets/spaguetti.png";
 import { Footer } from "../../components/Footer";
         
 
 export function Home() {
-    const [swiperRef, setSwiperRef] = useState(0);
-    const [swiperIndex, setSwiperIndex] = useState(0);
+    const [swiperMealRef, setSwiperMealRef] = useState(0);
+    const [swiperMealIndex, setSwiperMealIndex] = useState(0);
+    const [swiperDessertRef, setSwiperDessertRef] = useState(0);
+    const [swiperDessertIndex, setSwiperDessertIndex] = useState(0);
+    const [swiperDrinkRef, setSwiperDrinkRef] = useState(0);
+    const [swiperDrinkIndex, setSwiperDrinkIndex] = useState(0);
     const [isAdmin, setIsAdmin] = useState(false);
     const [meals, setMeals] = useState({});
     const [drinks, setDrinks] = useState({});
     const [desserts, setDesserts] = useState({});
     const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -54,12 +60,32 @@ export function Home() {
 
     }, []);
 
-    function getOpacity(index) {
-        if((index+1) >= swiperIndex && (index+1) < (swiperIndex+3)) {
+    function getOpacityMeals(index) {
+        if((index+1) >= swiperMealIndex && (index+1) < (swiperMealIndex+3)) {
             return 1;
         } else {
             return 0.3;
         }
+    }
+
+    function getOpacityDesserts(index) {
+        if((index+1) >= swiperDessertIndex && (index+1) < (swiperDessertIndex+3)) {
+            return 1;
+        } else {
+            return 0.3;
+        }
+    }
+
+    function getOpacityDrinks(index) {
+        if((index+1) >= swiperDrinkIndex && (index+1) < (swiperDrinkIndex+3)) {
+            return 1;
+        } else {
+            return 0.3;
+        }
+    }
+
+    function handleDishDetails(mealId) {
+        navigate(`/dish/${mealId}`);
     }
 
     return(
@@ -82,33 +108,38 @@ export function Home() {
                     <h1>Refeições</h1>
                     <CarouselCards>
                         <Swiper
-                            onSwiper={setSwiperRef}
+                            onSwiper={setSwiperMealRef}
                             onSlideChange={(swiper) => {
-                                setSwiperIndex(swiper.realIndex);
+                                setSwiperMealIndex(swiper.realIndex);
                             }}
                             slidesPerView={3.8}
-                            initialSlide={swiperRef}
+                            initialSlide={swiperMealRef}
                             centeredSlides={true}
                             centeredSlidesBounds={true}
                             spaceBetween={27}
                             navigation={true}
                             modules={[Pagination, Navigation]}
-                            className="mySwiper"
+                            className="mealSwiper"
+                            key={"mealSwiper"}
                         >
                             { 
                                 isDataLoaded ?
                                 meals?.map((meal, index) => {         
                                     const srcImage = `${api.defaults.baseURL}/dishesFiles/${meal.dish_image}`;
                                     return(
-                                        <SwiperSlide>
+                                        <SwiperSlide
+                                            key={`mealSwiper${index}`}
+                                        >
                                             <DishCard 
                                                 icon={isAdmin ? PiPencilSimple : FiHeart}
-                                                name={meal.name}
+                                                name={meal.name + " >"}
                                                 description={meal.description}
                                                 price={meal.price}
                                                 image={<img src={srcImage} width={176} height={176}/>}
-                                                opacity={getOpacity(index)}
+                                                opacity={getOpacityMeals(index)}
                                                 isAdmin={isAdmin}
+                                                onClick={() => handleDishDetails(meal.id)}
+                                                key={`${meal}${index}`}
                                             />
                                         </SwiperSlide>
                                     )
@@ -122,31 +153,38 @@ export function Home() {
                     <h1>Sobremesas</h1>
                     <CarouselCards>
                         <Swiper
-                            onSwiper={setSwiperRef}
-                            onSlideChange={() => console.log(swiperRef)}
+                            onSwiper={setSwiperDessertRef}
+                            onSlideChange={(swiper) => {
+                                setSwiperDessertIndex(swiper.realIndex);
+                            }}
                             slidesPerView={3.8}
-                            initialSlide={swiperRef}
+                            initialSlide={swiperDessertRef}
                             centeredSlides={true}
                             centeredSlidesBounds={true}
                             spaceBetween={27}
                             navigation={true}
                             modules={[Pagination, Navigation]}
-                            className="mySwiper"
+                            className="dessertSwiper"
+                            key={"dessertSwiper"}
                         >
                             { 
                                 isDataLoaded ?
                                 desserts?.map((dessert, index) => {
                                     const srcImage = `${api.defaults.baseURL}/dishesFiles/${dessert.dish_image}`;
                                     return(
-                                        <SwiperSlide>
+                                        <SwiperSlide
+                                        key={`dessertSwiper${index}`}
+                                        >
                                             <DishCard 
                                                 icon={isAdmin ? PiPencilSimple : FiHeart}
                                                 name={dessert.name}
                                                 description={dessert.description}
                                                 price={dessert.price}
                                                 image={<img src={srcImage} width={176} height={176}/>}
-                                                opacity={getOpacity(index)}
+                                                opacity={getOpacityDesserts(index)}
                                                 isAdmin={isAdmin}
+                                                onClick={() => handleDishDetails(dessert.id)}
+                                                key={`${dessert}${index}`}
                                             />
                                         </SwiperSlide>
                                     )
@@ -159,31 +197,38 @@ export function Home() {
                     <h1>Bebidas</h1>
                     <CarouselCards>
                         <Swiper
-                            onSwiper={setSwiperRef}
-                            onSlideChange={() => console.log(swiperRef)}
+                            onSwiper={setSwiperDrinkRef}
+                            onSlideChange={(swiper) => {
+                                setSwiperDrinkIndex(swiper.realIndex);
+                            }}
                             slidesPerView={3.8}
-                            initialSlide={swiperRef}
+                            initialSlide={swiperDrinkRef}
                             centeredSlides={true}
                             centeredSlidesBounds={true}
                             spaceBetween={27}
                             navigation={true}
                             modules={[Pagination, Navigation]}
-                            className="mySwiper"
+                            className="drinkSwiper"
+                            key={"drinkSwiper"}
                         >
                             { 
                                 isDataLoaded ?
                                 drinks?.map((drink, index) => {
                                     const srcImage = `${api.defaults.baseURL}/dishesFiles/${drink.dish_image}`;
                                     return(
-                                        <SwiperSlide>
+                                        <SwiperSlide
+                                        key={`drinkSwiper${index}`}
+                                        >
                                             <DishCard 
                                                 icon={isAdmin ? PiPencilSimple : FiHeart}
                                                 name={drink.name}
                                                 description={drink.description}
                                                 price={drink.price}
                                                 image={<img src={srcImage} width={176} height={176}/>}
-                                                opacity={getOpacity(index)}
+                                                opacity={getOpacityDrinks(index)}
                                                 isAdmin={isAdmin}
+                                                onClick={() => handleDishDetails(drink.id)}
+                                                key={`${drink}${index}`}
                                             />
                                         </SwiperSlide>
                                     )

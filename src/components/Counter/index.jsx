@@ -15,7 +15,7 @@ export function Counter({ price }) {
             <ButtonIcon>
                 <FiPlus color="white" size={24}/>
             </ButtonIcon>
-            <Box price={price}>
+            <Box $price={price}>
                 { price ? <Button title={`incluir ∙ R$ ${price}`}/> : <Button title="incluir"/>}
             </Box>
         </Container>

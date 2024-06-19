@@ -1,11 +1,13 @@
 import { Container, Action, DishImage, Box, Frame } from "./styles";
 import { Counter } from "../Counter";
 
-export function DishCard({ icon: Icon, name, description, price, image: Image, opacity, isAdmin }) {
+export function DishCard({ icon: Icon, name, description, price, image: Image, opacity, isAdmin, onClick }) {
     return(
         <Container opacity={opacity}>
             <Box>
-                <DishImage>
+                <DishImage
+                    onClick={onClick}
+                >
                     { Image }
                 </DishImage>
                 <Action>

@@ -57,9 +57,11 @@ export const Action = styled.button`
 
 `;
 
-export const DishImage = styled.div`
+export const DishImage = styled.button`
     margin-left: 64px;
     margin-top: 24px;
+    background: transparent;
+    border: none;
 `;
 
 export const Box = styled.div`

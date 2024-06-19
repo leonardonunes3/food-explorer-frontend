@@ -14,7 +14,7 @@ export const Container = styled.footer`
        margin-left: 124px;
     }
 
-    text {
+    p {
         font-size: 14px;
         color: ${({theme}) => theme.COLORS.LIGHT_200 };
         font-family: "Roboto", sans-serif;

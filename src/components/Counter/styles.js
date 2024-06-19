@@ -29,5 +29,5 @@ export const Number = styled.div`
 `;
 
 export const Box = styled.div`
-    margin-left: ${({ price }) => price ? "34px" : ""};
+    margin-left: ${({ $price }) => $price ? "34px" : ""};
 `;

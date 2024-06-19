@@ -11,7 +11,7 @@ import { PiReceiptLight } from "react-icons/pi";
 export function Header({ isAdmin = false }) {
     return(
         <Container>
-            <Frame isAdmin={isAdmin}>
+            <Frame $isadmin={isAdmin}>
                 { 
                     isAdmin 
                     ? 
