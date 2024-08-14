@@ -8,7 +8,15 @@ import { Button } from "../Button";
 import { FiSearch, FiLogOut } from "react-icons/fi";
 import { PiReceiptLight } from "react-icons/pi";
 
+import { useNavigate } from "react-router-dom";
+
 export function Header({ isAdmin = false }) {
+    const navigate = useNavigate();
+
+    function handleNewDish(){
+        navigate("/add");
+    }
+
     return(
         <Container>
             <Frame $isadmin={isAdmin}>
@@ -27,6 +35,7 @@ export function Header({ isAdmin = false }) {
                { isAdmin ? 
                 <Button 
                     title={"Novo Prato"}
+                    onClick={handleNewDish}
                 />
                 :
                 <Button 

@@ -90,8 +90,8 @@ export const BigInput = styled.div`
 export const InputBox = styled.div`
     display: flex;
     flex-direction: column;
-    margin: ${({ last }) => last ? "0 0 32px 0" : "0 32px 32px 0" };
-    width: ${({ scale }) => scale ? "100%" : "" };
+    margin: ${({ $last }) => $last ? "0 0 32px 0" : "0 32px 32px 0" };
+    width: ${({ $scale }) => $scale ? "100%" : "" };
     white-space: nowrap;
 
     h2 {

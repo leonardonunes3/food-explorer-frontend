@@ -11,14 +11,25 @@ import { SlArrowLeft } from "react-icons/sl";
 import { PiUploadSimpleLight } from "react-icons/pi";
 import { IoCloseOutline } from "react-icons/io5";
 import { Button } from "../../components/Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import debounce from "debounce";
+
+import { useNavigate, useParams } from "react-router-dom";
 
 
 export function ConfigDish() {
     const [newDish, setNewDish] = useState(true);
     const [ingredients, setIngredients] = useState([]);
     const [input, setInput] = useState();
+
+    const navigate = useNavigate();
+    let { id } = useParams();
+
+    useEffect(() => {
+        if(id) {
+            setNewDish(false);
+        }
+    }, []);
 
     const options = [
         {
@@ -74,7 +85,7 @@ export function ConfigDish() {
 
     return(
         <Container>
-            <Header isAdmin />
+            <Header isAdmin={true} />
             <Content>
                 <GoBack type="button">
                     <SlArrowLeft size={24}/>
@@ -90,14 +101,14 @@ export function ConfigDish() {
                                 <p>Selecione imagem</p>
                             </UploadButton>
                         </InputBox>
-                        <InputBox scale={true}>
+                        <InputBox $scale={true}>
                             <h2>Nome</h2>
                             <Input 
                                 placeholder="Ex.: Salada Ceasar"
                                 alternativeInput
                             />
                         </InputBox>
-                        <InputBox last={true}>
+                        <InputBox $last={true}>
                             <h2>Categoria</h2>
                             <Select
                                 options={options}
@@ -113,7 +124,7 @@ export function ConfigDish() {
                         </InputBox>
                     </FirstRow>
                     <SecondRow>
-                        <InputBox scale={true}>
+                        <InputBox $scale={true}>
                             <h2>Ingredientes</h2>
                             <Ingredients>
                                 { 
@@ -147,7 +158,7 @@ export function ConfigDish() {
                                 </AddButton>
                             </Ingredients>
                         </InputBox>
-                        <InputBox last={true}>
+                        <InputBox $last={true}>
                             <h2>Preço</h2>
                             <Input 
                                 placeholder="R$ 00,00"
@@ -156,7 +167,7 @@ export function ConfigDish() {
                         </InputBox>
                     </SecondRow>
                     <ThirdRow>
-                        <InputBox scale={true} last={true}>
+                        <InputBox $scale={true} $last={true}>
                             <h2>Descrição</h2>
                             <BigInput>
                                 <textarea 
