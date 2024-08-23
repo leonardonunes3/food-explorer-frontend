@@ -28,6 +28,7 @@ export const Frame = styled.div`
     > svg {
         margin-left: 32px;
         margin-right: 124px;
+        cursor: pointer;
     }
 
     button {
@@ -47,4 +48,10 @@ export const Frame = styled.div`
 
         
     }
+`;
+
+export const LogOut = styled.button`
+    display: flex;
+    background-color: transparent;
+    border: 0;
 `;

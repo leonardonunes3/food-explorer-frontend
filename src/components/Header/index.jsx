@@ -1,4 +1,4 @@
-import { Container, Frame } from './styles';
+import { Container, Frame, LogOut } from './styles';
 
 import logo from "../../assets/Logo.svg";
 import adminLogo from "../../assets/AdminLogo.svg";
@@ -8,10 +8,14 @@ import { Button } from "../Button";
 import { FiSearch, FiLogOut } from "react-icons/fi";
 import { PiReceiptLight } from "react-icons/pi";
 
+import { useAuth } from "../../hooks/auth";
+
 import { useNavigate } from "react-router-dom";
 
 export function Header({ isAdmin = false }) {
     const navigate = useNavigate();
+
+    const { signOut } = useAuth();
 
     function handleNewDish(){
         navigate("/add");
@@ -43,7 +47,7 @@ export function Header({ isAdmin = false }) {
                     title={"Pedidos (0)"}
                 />
                 }
-                <FiLogOut size={64} />
+                <FiLogOut size={64} type='button' onClick={signOut}/>
             </Frame>
         </Container>
     );

@@ -40,7 +40,7 @@ export function Home() {
 
     useEffect(() => {
 
-        api.get("/dishes")
+        api.get("/dishes", { withCredentials: true })
         .then((response) => {
 
             setMeals(response.data.filter((meal) => meal.category === "Refeições"));
