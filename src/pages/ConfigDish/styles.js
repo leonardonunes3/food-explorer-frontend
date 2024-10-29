@@ -137,6 +137,9 @@ export const UploadButton = styled.button`
     svg {
         margin-right: 8px;
     }
+    > img {
+        margin-right: 16px;
+    }
 `;
 
 export const ButtonFrame = styled.div`

@@ -5,9 +5,11 @@ import { UserRoutes } from "./user.routes";
 import { AuthRoutes } from "./auth.routes";
 
 import { useAuth } from "../hooks/auth";
+import { api } from "../services/api";
+import { useEffect } from "react";
 
 export function Routes() {
-    const { user } = useAuth();
+    const { user, signOut } = useAuth();
 
     function AcessRoute() {
         switch(user.role) {
@@ -19,6 +21,16 @@ export function Routes() {
                 return <UserRoutes />;    
         }
     }
+
+    useEffect(() => {
+        api
+        .get("/users/validated")
+        .catch((error) => {
+            if(error.response?.status === 401) {
+                signOut();
+            }
+        });
+    }, []);
 
     return(
         <BrowserRouter>

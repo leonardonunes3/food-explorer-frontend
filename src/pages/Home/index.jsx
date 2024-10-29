@@ -12,7 +12,8 @@ import { Pagination, Navigation } from 'swiper/modules';
 
 import { useNavigate } from "react-router-dom";
 
-import { api } from "../../services/api.js";
+import { api } from "../../services/api";
+import { useAuth } from "../../hooks/auth";
  
 import banner from "../../assets/Banner.svg";
 
@@ -38,6 +39,8 @@ export function Home() {
 
     const navigate = useNavigate();
 
+    const { user } = useAuth();
+
     useEffect(() => {
 
         api.get("/dishes", { withCredentials: true })
@@ -50,11 +53,17 @@ export function Home() {
         })
         .catch(error => {
             if(error.response) {
-                alert(error.response.data.message);
+                if(error.response?.status !== 401) {
+                    alert(error.response.data.message);
+                }
             } else {
                 alert("Não foi possível conectar com o servidor.");
             }
         })
+
+        if(user.role === 'admin') {
+            setIsAdmin(true);
+        }
 
         setIsDataLoaded(true);
 

@@ -11,38 +11,42 @@ import { SlArrowLeft } from "react-icons/sl";
 import { PiUploadSimpleLight } from "react-icons/pi";
 import { IoCloseOutline } from "react-icons/io5";
 import { Button } from "../../components/Button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import debounce from "debounce";
 
 import { useNavigate, useParams } from "react-router-dom";
+
+import { api } from "../../services/api";
 
 
 export function ConfigDish() {
     const [newDish, setNewDish] = useState(true);
     const [ingredients, setIngredients] = useState([]);
+    const [name, setName] = useState("");
+    const [category, setCategory] = useState("");
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState();
+    const [image, setImage] = useState("");
+    const [file, setFile] = useState("");
+    const [fileImage, setFileImage] = useState("");
+    const fileInput = useRef(null)
     const [input, setInput] = useState();
 
     const navigate = useNavigate();
     let { id } = useParams();
 
-    useEffect(() => {
-        if(id) {
-            setNewDish(false);
-        }
-    }, []);
-
     const options = [
         {
-          value: "Refeição",
-          label: "Refeição"
+          value: "Refeições",
+          label: "Refeições"
         },
         {
-          value: "Sobremesa",
-          label: "Sobremesa",
+          value: "Sobremesas",
+          label: "Sobremesas",
         },
         {
-          value: "Bebida",
-          label: "Bebida",
+          value: "Bebidas",
+          label: "Bebidas",
         },
     ];
 
@@ -83,11 +87,81 @@ export function ConfigDish() {
 
     const handleOnClick = debounce(updateState, 300);
 
+    function handleGoBack() {
+        navigate("/");
+    }
+
+    function handleSaveDish() {
+        if(newDish) {
+            if(!file || !name || !category || !ingredients || !description || !price ) {
+                return alert("Preencha todos os campos!")
+            }
+
+            api.post(`/dishes`, 
+                { name, category: category.value, price, description, ingredients: ingredients.map(ingredient => ingredient.name), dish_image: new File([file], file.name, {type: file.type}) },
+                {
+                    headers: {
+                    'Content-Type': 'multipart/form-data'
+                    }
+                })
+            .then(() => {
+                alert("Prato cadastrado com sucesso!")
+            })
+            .catch(error => {
+                if(error.response) {
+                  alert(error.response.data.message);
+                } else {
+                  alert("Não foi possível cadastrar o prato");
+                }
+              })
+        } else {
+
+        }
+    }
+
+    function handleUpload() {
+        console.log("Upload");
+        fileInput.current.click();
+    }
+
+    function handleFileChange(event) {
+        const fileUploaded = event.target.files[0];
+        setFile(fileUploaded);
+        setFileImage(URL.createObjectURL(fileUploaded));
+        console.log("file setado");
+    }
+
+    useEffect(() => {
+        if(id) {
+            api.get(`/dishes/${id}`)
+            .then((response) => {
+                setName(response.data.name);
+                setDescription(response.data.description);
+                setIngredients(response.data.ingredients);
+                setPrice(response.data.price);
+                
+                setImage(`${api.defaults.baseURL}/dishesFiles/${response.data.dish_image}`);
+            })
+            .catch(error => {
+                if(error.response) {
+                    alert(error.response.data.message);
+                } else {
+                    alert("Não foi possível conectar com o servidor.");
+                }
+            })
+
+            setNewDish(false);
+        }
+    }, []);
+
     return(
         <Container>
             <Header isAdmin={true} />
             <Content>
-                <GoBack type="button">
+                <GoBack 
+                    type="button" 
+                    onClick={handleGoBack}
+                >
                     <SlArrowLeft size={24}/>
                     <h2>voltar</h2>
                 </GoBack>
@@ -96,9 +170,26 @@ export function ConfigDish() {
                     <FirstRow>
                         <InputBox>
                             <h2>Imagem do prato</h2>
-                            <UploadButton type="button" >
-                                <PiUploadSimpleLight size={24} />
-                                <p>Selecione imagem</p>
+                            <UploadButton onClick={handleUpload}>
+                                <input 
+                                    id="image"
+                                    type="file" 
+                                    style={{display: 'none'}}
+                                    onChange={handleFileChange}
+                                    ref={fileInput}
+                                />
+                                { file ? 
+                                    <>
+                                        <img width={40} height={40} src={fileImage}/>
+                                        <p>{file.name}</p>
+                                    </> 
+                                    : 
+                                    <>
+                                        <PiUploadSimpleLight size={24} />
+                                        <p>Selecione imagem</p> 
+                                    </>
+                                }
+                                
                             </UploadButton>
                         </InputBox>
                         <InputBox $scale={true}>
@@ -106,6 +197,7 @@ export function ConfigDish() {
                             <Input 
                                 placeholder="Ex.: Salada Ceasar"
                                 alternativeInput
+                                onChange={e => setName(e.target.value)}
                             />
                         </InputBox>
                         <InputBox $last={true}>
@@ -115,6 +207,7 @@ export function ConfigDish() {
                                 styles={customStyles}
                                 isSearchable={true}
                                 placeholder={"Selecione uma categoria"}
+                                onChange={setCategory}
                                 theme={(theme) => ({
                                     ...theme,
                                     colors: {
@@ -134,7 +227,6 @@ export function ConfigDish() {
                                             <Exclude
                                                 type="button"
                                                 onClick={() => {
-                                                    console.log(ingredients.at(index));
                                                     setIngredients(ingredients.filter((ingredient) => ingredient !== ingredients.at(index)))
                                                 }}
                                             >
@@ -163,6 +255,7 @@ export function ConfigDish() {
                             <Input 
                                 placeholder="R$ 00,00"
                                 alternativeInput
+                                onChange={e => setPrice(e.target.value)}
                             />
                         </InputBox>
                     </SecondRow>
@@ -172,6 +265,7 @@ export function ConfigDish() {
                             <BigInput>
                                 <textarea 
                                     placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
+                                    onChange={e => setDescription(e.target.value)}
                                 />
                             </BigInput>
                         </InputBox>
@@ -179,6 +273,7 @@ export function ConfigDish() {
                     <ButtonFrame>
                         <Button
                             title={"Salvar alterações"}
+                            onClick={handleSaveDish}
                         />
                         { newDish ? <></> : 
                         <Button
