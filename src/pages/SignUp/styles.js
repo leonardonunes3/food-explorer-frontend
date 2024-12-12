@@ -23,7 +23,7 @@ export const Form = styled.form`
     min-height: 620px;
     border-radius: 16px;
 
-    margin: 90px 108px 112px 0;
+    margin: 90px 108px 112px 108px;
     padding: 0 64px;
     display: flex;
     flex-direction: column;
