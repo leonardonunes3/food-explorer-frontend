@@ -17,6 +17,11 @@ export function Header({ isAdmin = false }) {
 
     const { signOut } = useAuth();
 
+    function handleSignOut() {
+        signOut();
+        navigate("/");
+    }
+
     function handleNewDish(){
         navigate("/add");
     }
@@ -47,7 +52,7 @@ export function Header({ isAdmin = false }) {
                     title={"Pedidos (0)"}
                 />
                 }
-                <FiLogOut size={64} type='button' onClick={signOut}/>
+                <FiLogOut size={64} type='button' onClick={handleSignOut}/>
             </Frame>
         </Container>
     );
