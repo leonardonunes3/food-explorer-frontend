@@ -32,9 +32,9 @@ export function Home() {
     const [swiperDrinkRef, setSwiperDrinkRef] = useState(0);
     const [swiperDrinkIndex, setSwiperDrinkIndex] = useState(0);
     const [isAdmin, setIsAdmin] = useState(false);
-    const [meals, setMeals] = useState({});
-    const [drinks, setDrinks] = useState({});
-    const [desserts, setDesserts] = useState({});
+    const [meals, setMeals] = useState();
+    const [drinks, setDrinks] = useState();
+    const [desserts, setDesserts] = useState();
     const [isDataLoaded, setIsDataLoaded] = useState(false);
 
     const navigate = useNavigate();
