@@ -93,10 +93,9 @@ export function ConfigDish() {
 
     function handleSaveDish() {
         if(newDish) {
-            if(!file || !name || !category || !ingredients || !description || !price ) {
+            if(!file || !name || !category || ingredients.length == 0 || !description || !price ) {
                 return alert("Preencha todos os campos!")
             }
-
             api.post(`/dishes`, 
                 { name, category: category.value, price, description, ingredients: ingredients.map(ingredient => ingredient.name), dish_image: new File([file], file.name, {type: file.type}) },
                 {
