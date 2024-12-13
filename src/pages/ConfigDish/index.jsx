@@ -138,6 +138,7 @@ export function ConfigDish() {
                 setDescription(response.data.description);
                 setIngredients(response.data.ingredients);
                 setPrice(response.data.price);
+                setCategory(response.data.category);
                 
                 setImage(`${api.defaults.baseURL}/dishesFiles/${response.data.dish_image}`);
             })
@@ -196,6 +197,7 @@ export function ConfigDish() {
                             <Input 
                                 placeholder="Ex.: Salada Ceasar"
                                 alternativeInput
+                                value={name}
                                 onChange={e => setName(e.target.value)}
                             />
                         </InputBox>
@@ -206,6 +208,7 @@ export function ConfigDish() {
                                 styles={customStyles}
                                 isSearchable={true}
                                 placeholder={"Selecione uma categoria"}
+                                value={category ? {value: category, label: category} : null}
                                 onChange={setCategory}
                                 theme={(theme) => ({
                                     ...theme,
@@ -254,6 +257,7 @@ export function ConfigDish() {
                             <Input 
                                 placeholder="R$ 00,00"
                                 alternativeInput
+                                value={price}
                                 onChange={e => setPrice(e.target.value)}
                             />
                         </InputBox>
@@ -264,6 +268,7 @@ export function ConfigDish() {
                             <BigInput>
                                 <textarea 
                                     placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
+                                    value={description}
                                     onChange={e => setDescription(e.target.value)}
                                 />
                             </BigInput>
