@@ -26,7 +26,7 @@ export function ConfigDish() {
     const [category, setCategory] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState();
-    const [image, setImage] = useState("");
+    const [fileName, setFileName] = useState("");
     const [file, setFile] = useState("");
     const [fileImage, setFileImage] = useState("");
     const fileInput = useRef(null)
@@ -91,6 +91,20 @@ export function ConfigDish() {
         navigate("/");
     }
 
+    function handleDeleteDish() {
+        api.delete(`/dishes/${id}`)
+        .then(() => {
+            alert("Prato deletado com sucesso!")
+        })
+        .catch(error => {
+            if(error.response) {
+              alert(error.response.data.message);
+            } else {
+              alert("Não foi possível deletar o prato");
+            }
+          })
+    }
+
     function handleSaveDish() {
         if(newDish) {
             if(!file || !name || !category || ingredients.length == 0 || !description || !price ) {
@@ -114,12 +128,46 @@ export function ConfigDish() {
                 }
               })
         } else {
-
+            if(!name || !category || ingredients.length == 0 || !description || !price ) {
+                return alert("Preencha todos os campos!")
+            }
+            if(file) {
+                api.put(`/dishes/${id}`, 
+                    { name, category: category.value, price, description, ingredients: ingredients.map(ingredient => ingredient.name), dish_image: new File([file], file.name, {type: file.type}) },
+                    {
+                        headers: {
+                        'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    .then(() => {
+                        alert("Prato editado com sucesso!")
+                    })
+                    .catch(error => {
+                        if(error.response) {
+                          alert(error.response.data.message);
+                        } else {
+                          alert("Não foi possível editar o prato");
+                        }
+                      })
+            } else {
+                api.put(`/dishes/${id}`, 
+                    { name, category: category.value, price, description, ingredients: ingredients.map(ingredient => ingredient.name) })
+                    .then(() => {
+                        alert("Prato editado com sucesso!")
+                    })
+                    .catch(error => {
+                        if(error.response) {
+                          alert(error.response.data.message);
+                        } else {
+                          alert("Não foi possível editar o prato");
+                        }
+                      })
+            }
+            
         }
     }
 
     function handleUpload() {
-        console.log("Upload");
         fileInput.current.click();
     }
 
@@ -127,7 +175,6 @@ export function ConfigDish() {
         const fileUploaded = event.target.files[0];
         setFile(fileUploaded);
         setFileImage(URL.createObjectURL(fileUploaded));
-        console.log("file setado");
     }
 
     useEffect(() => {
@@ -138,9 +185,12 @@ export function ConfigDish() {
                 setDescription(response.data.description);
                 setIngredients(response.data.ingredients);
                 setPrice(response.data.price);
-                setCategory(response.data.category);
+                setCategory({value: response.data.category, label: response.data.category});
                 
-                setImage(`${api.defaults.baseURL}/dishesFiles/${response.data.dish_image}`);
+                setFileImage(`${api.defaults.baseURL}/dishesFiles/${response.data.dish_image}`);
+                const fileName = `${response.data.dish_image}`.split("-");
+                fileName.shift(); 
+                setFileName(fileName.join());
             })
             .catch(error => {
                 if(error.response) {
@@ -184,6 +234,14 @@ export function ConfigDish() {
                                         <p>{file.name}</p>
                                     </> 
                                     : 
+
+                                    fileImage ?
+                                    <>
+                                        <img width={40} height={40} src={fileImage}/>
+                                        <p>{fileName}</p>
+                                    </>
+
+                                    :
                                     <>
                                         <PiUploadSimpleLight size={24} />
                                         <p>Selecione imagem</p> 
@@ -208,7 +266,7 @@ export function ConfigDish() {
                                 styles={customStyles}
                                 isSearchable={true}
                                 placeholder={"Selecione uma categoria"}
-                                value={category ? {value: category, label: category} : null}
+                                value={category}
                                 onChange={setCategory}
                                 theme={(theme) => ({
                                     ...theme,
@@ -282,6 +340,7 @@ export function ConfigDish() {
                         { newDish ? <></> : 
                         <Button
                             title={"Excluir prato"}
+                            onClick={handleDeleteDish}
                         />
                         }
                     </ButtonFrame>
