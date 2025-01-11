@@ -31,7 +31,7 @@ export const Frame = styled.div`
         cursor: pointer;
     }
 
-    button {
+    > button {
         height: 56px;
         width: fit-content;
         margin-left: 32px;
@@ -44,14 +44,44 @@ export const Frame = styled.div`
         > svg {
             margin-left: 46px;
             margin-right: 8px;
-        }
-
-        
+        }  
     }
+
 `;
 
-export const LogOut = styled.button`
+export const SearchBar = styled.div`
     display: flex;
-    background-color: transparent;
-    border: 0;
+    width: 100%;
+    position: relative;
 `;
+
+export const Dishes = styled.div`
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-self: flex-start;
+    margin-top: 50px;
+    width: 100%;
+    z-index: 2;
+    background-color: ${({ theme }) =>  theme.COLORS.BACKGROUND_DARK_900 };
+    border-radius: 5px;
+`; 
+ export const Dish = styled.button`
+    display: flex;
+    flex-direction: row;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    width: 100%;
+    background: none;
+    color: ${({theme}) => theme.COLORS.WHITE };
+    border: none;
+    > p {
+        line-height: 48px;
+    }
+    img {
+        margin-left: 130px;
+    }
+    :hover {
+        opacity: 0.7;
+    }
+ `;

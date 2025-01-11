@@ -51,7 +51,7 @@ export function Dish() {
         }
 
         setIsDataLoaded(true);
-    }, []);
+    }, [id]);
 
     function handleGoBack() {
         navigate(-1);
