@@ -94,7 +94,8 @@ export function ConfigDish() {
     function handleDeleteDish() {
         api.delete(`/dishes/${id}`)
         .then(() => {
-            alert("Prato deletado com sucesso!")
+            alert("Prato deletado com sucesso!");
+            navigate("/");
         })
         .catch(error => {
             if(error.response) {
@@ -118,7 +119,8 @@ export function ConfigDish() {
                     }
                 })
             .then(() => {
-                alert("Prato cadastrado com sucesso!")
+                alert("Prato cadastrado com sucesso!");
+                navigate("/");
             })
             .catch(error => {
                 if(error.response) {
@@ -140,7 +142,8 @@ export function ConfigDish() {
                         }
                     })
                     .then(() => {
-                        alert("Prato editado com sucesso!")
+                        alert("Prato editado com sucesso!");
+                        navigate("/");
                     })
                     .catch(error => {
                         if(error.response) {
@@ -153,7 +156,8 @@ export function ConfigDish() {
                 api.put(`/dishes/${id}`, 
                     { name, category: category.value, price, description, ingredients: ingredients.map(ingredient => ingredient.name) })
                     .then(() => {
-                        alert("Prato editado com sucesso!")
+                        alert("Prato editado com sucesso!");
+                        navigate("/");
                     })
                     .catch(error => {
                         if(error.response) {
