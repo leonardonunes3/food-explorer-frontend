@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { DEVICE_BREAKPOINTS } from "../../styles/deviceBreakpoints";
 
 export const Container = styled.div`
     width: 100%;
@@ -7,13 +8,26 @@ export const Container = styled.div`
     display: flex;
     flex-direction: row-reverse;
 
+    @media (max-width: ${DEVICE_BREAKPOINTS.LG} ) {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
     img {
-        
         height: 48px;
         width: 324px;
 
         margin-top: 340px;
         margin-right: 306px;
+
+        @media (max-width: ${DEVICE_BREAKPOINTS.XL} ) {
+            margin-right: 0px;
+        }
+
+        @media (max-width: ${DEVICE_BREAKPOINTS.SM} ) {
+            width: 90%;
+            padding: 0 46px;
+        }
     }
 
 `;
@@ -34,11 +48,28 @@ export const Form = styled.form`
 
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND_DARK_700 };
 
+    @media (max-width: ${DEVICE_BREAKPOINTS.LG} ) {
+        background-color: ${({ theme }) => theme.COLORS.BACKGROUND_DARK_400 };
+        margin-top: 74px;
+    }
+
+    @media (max-width: ${DEVICE_BREAKPOINTS.SM} ) {
+        width: 90%;
+        padding: 0 46px;
+
+        input {
+            font-size: 12px;
+        }
+    }
+
     h1 {
         font-size: 32px;
         font-weight: 400;
         margin-top: 64px;
         margin-bottom: 32px;
+        @media (max-width: ${DEVICE_BREAKPOINTS.LG} ) {
+            display: none;
+        }   
     }
 
     p {
@@ -47,11 +78,17 @@ export const Form = styled.form`
         margin-bottom: 8px;
         font-family: "Roboto", sans-serif;
         font-size: 16px;
+        @media (max-width: ${DEVICE_BREAKPOINTS.SM} ) {
+            font-size: 12px;
+        }
         color: ${({ theme }) => theme.COLORS.LIGHT_400 };
     }
 
     button, div {
         margin-bottom: 32px;
+        @media (max-width: ${DEVICE_BREAKPOINTS.SM} ) {
+            font-size: 12px;
+        }
     }
 
     button {
