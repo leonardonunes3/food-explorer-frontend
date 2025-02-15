@@ -11,6 +11,7 @@ export const Container = styled.div`
     @media (max-width: ${DEVICE_BREAKPOINTS.LG} ) {
         flex-direction: column-reverse;
         align-items: center;
+        min-height: 800px;
     }
 
     img {
@@ -26,7 +27,7 @@ export const Container = styled.div`
         }
 
         @media (max-width: ${DEVICE_BREAKPOINTS.LG} ) {
-            margin-top: 46px;
+            margin-top: 0px;
         }
 
         @media (max-width: ${DEVICE_BREAKPOINTS.SM} ) {

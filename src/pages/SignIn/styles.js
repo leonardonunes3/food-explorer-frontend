@@ -25,7 +25,7 @@ export const Container = styled.div`
         }
 
         @media (max-width: ${DEVICE_BREAKPOINTS.LG} ) {
-            margin-top: 0px;
+            margin-top: 46px;
         }
 
         @media (max-width: ${DEVICE_BREAKPOINTS.SM} ) {
