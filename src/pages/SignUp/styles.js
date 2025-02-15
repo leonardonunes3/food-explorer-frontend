@@ -25,6 +25,10 @@ export const Container = styled.div`
             margin-right: 0px;
         }
 
+        @media (max-width: ${DEVICE_BREAKPOINTS.LG} ) {
+            margin-top: 46px;
+        }
+
         @media (max-width: ${DEVICE_BREAKPOINTS.SM} ) {
             width: 90%;
             padding: 0 46px;
@@ -42,7 +46,6 @@ export const Form = styled.form`
     padding: 0 64px;
     display: flex;
     flex-direction: column;
-    align-items: center;
 
     text-align: center;
     font-size: 14px;
@@ -53,6 +56,7 @@ export const Form = styled.form`
         background-color: ${({ theme }) => theme.COLORS.BACKGROUND_DARK_400 };
         margin-top: 74px;
         margin-bottom: 62px;
+        min-height: 0px;
     }
 
     @media (max-width: ${DEVICE_BREAKPOINTS.SM} ) {
